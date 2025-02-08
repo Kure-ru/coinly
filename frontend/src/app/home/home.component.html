@@ -1,0 +1,33 @@
+<div class="grid gap-8 p-8">
+  <div class="grid grid-flow-col gap-4" *ngIf="data?.accountById">
+    <p-card header="Income">
+      <span>{{ data.accountById.income }}</span>
+    </p-card>
+
+    <p-card header="Expense">
+      <span>{{ data.accountById.expense }}</span>
+    </p-card>
+
+    <p-card header="Balance">
+      <span>{{ data.accountById.balance }}</span>
+    </p-card>
+  </div>
+
+  <p-card header="Transaction history" *ngIf="data?.transactions">
+    <p-timeline [value]="data.transactions">
+      <ng-template #content let-transaction>
+        <div class="flex justify-between">
+          <div>
+            <p>{{transaction.merchant }}</p>
+            <p-chip>{{ transaction.category }}</p-chip>
+          </div>
+          <p>{{ transaction.amount }}</p>
+        </div>
+      </ng-template>
+    </p-timeline>
+
+    <a routerLink="/transactions" class="p-button font-bold">
+      See all transactions
+    </a>
+  </p-card>
+</div>

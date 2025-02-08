@@ -16,9 +16,10 @@ builder.Services.AddCors(options =>
 // GraphQL services
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<GetAccount>()
+    .AddQueryType<Query>()
     .AddType<User>()
-    .AddType<Account>();
+    .AddType<Account>()
+    .AddType<Transaction>();
 
 // SQLite Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

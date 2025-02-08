@@ -1,0 +1,19 @@
+<h1>Transactions</h1>
+<p-table [value]="transactions" *ngIf="transactions">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Merchant</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-transaction>
+    <tr>
+      <td>{{ transaction.id }}</td>
+      <td>{{ transaction.amount }}</td>
+      <td><p-chip>{{ transaction.category }}</p-chip></td>
+      <td>{{ transaction.merchant }}</td>
+    </tr>
+  </ng-template>
+</p-table>
