@@ -1,0 +1,6 @@
+@coinly_HostAddress = http://localhost:5009
+
+GET {{coinly_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

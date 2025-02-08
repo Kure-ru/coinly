@@ -1,0 +1,6 @@
+type Account {
+    id: ID!
+    income: Int
+    expense: Int
+    balance: Int
+}
