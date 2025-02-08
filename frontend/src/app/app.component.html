@@ -1,18 +1,1 @@
-<div class="p-8">
-<div class="grid grid-flow-col gap-4" *ngIf="account$ | async as account">
-  <p-card>
-    <h2>Income</h2>
-    <span>{{ account.income }}</span>
-  </p-card>
-
-  <p-card>
-    <h2>Expenses</h2>
-    <span>{{ account.expense }}</span>
-  </p-card>
-
-  <p-card>
-    <h2>Balance</h2>
-    <span>{{ account.balance }}</span>
-  </p-card>
-</div>
-</div>
+<router-outlet></router-outlet>

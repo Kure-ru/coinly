@@ -1,6 +1,6 @@
 import {gql, TypedDocumentNode} from '@apollo/client/core';
 
-interface Account {
+export interface Account {
   id: number;
   income: number;
   expense: number;
