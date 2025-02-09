@@ -5,7 +5,7 @@
       <th>Id</th>
       <th>Amount</th>
       <th>Category</th>
-      <th>Merchant</th>
+      <th>Payee</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-transaction>
@@ -13,7 +13,7 @@
       <td>{{ transaction.id }}</td>
       <td>{{ transaction.amount }}</td>
       <td><p-chip>{{ transaction.category }}</p-chip></td>
-      <td>{{ transaction.merchant }}</td>
+      <td>{{ transaction.payee }}</td>
     </tr>
   </ng-template>
 </p-table>

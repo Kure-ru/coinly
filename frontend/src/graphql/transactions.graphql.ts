@@ -1,36 +1,59 @@
 import {gql, TypedDocumentNode} from '@apollo/client/core';
 import {Account} from './accounts.graphql';
 
-interface Transaction {
+export interface Transaction {
   id: number;
   accountId: number;
   amount: number;
   category: string;
-  merchant: string;
+  payee: string;
+  date: Date;
+  type: TransactionType
 }
 
-interface GetTransactionsByAccountIdResult {
+enum TransactionType {
+  inflow,
+  outflow
+}
+
+export interface GetTransactionsByAccountIDResult {
   accountById: Account;
   transactions: Transaction[];
 }
 
-interface GetTransactionsByAccountIdVariables {
+export interface GetTransactionsByAccountIDVariables {
   id: number;
+  accountId: number;
 }
 
-export const GET_ACCOUNT_AND_TRANSACTIONS: TypedDocumentNode<GetTransactionsByAccountIdResult, GetTransactionsByAccountIdVariables> =
-  gql`query GetAccountAndTransactions($accountId: Int!) {
-    accountById(id: $accountId) {
-    id
-    income
-    expense
-    balance
+export const GET_ACCOUNT_AND_TRANSACTIONS = gql`
+  query GetAccountAndTransactions($id: Int!, $accountId: Int!) {
+    accountById(id: $id) {
+      id
+      income
+      expense
+      balance
     }
-
     transactions(accountId: $accountId) {
       id
       amount
       category
-      merchant
+      payee
+      type
+      date
     }
-}`
+  }
+`;
+
+export const ADD_TRANSACTION = gql`
+  mutation AddTransaction($input: AddTransactionInput!) {
+    addTransaction(input: $input) {
+      id
+      amount
+      category
+      payee
+      date
+      type
+    }
+  }`;
+

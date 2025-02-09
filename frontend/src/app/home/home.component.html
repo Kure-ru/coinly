@@ -1,3 +1,31 @@
+<p-speeddial class="fixed bottom-16 right-16" (onClick)="visible = true"/>
+<p-dialog header="Add new transaction" [modal]="true" [(visible)]=visible [style]="{ width: '25rem' }">
+  <div class="flex items-center gap-4 mb-4">
+    <label for="amount" class="font-semibold w-24">Amount</label>
+    <input pInputText id="amount" class="flex-auto" autocomplete="off" [(ngModel)]="amount" />
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label for="category" class="font-semibold w-24">Category</label>
+    <input pInputText id="category" class="flex-auto" autocomplete="off" [(ngModel)]="category"/>
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label for="payee" class="font-semibold w-24">Payee</label>
+    <input pInputText id="payee" class="flex-auto" autocomplete="off" [(ngModel)]="payee"/>
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label class="font-semibold w-24">Type</label>
+    <p-select  [options]="transactionTypes" [(ngModel)]="type" optionLabel="label" placeholder="Type of transaction" class="flex-auto"/>
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label class="font-semibold w-24">Date</label>
+    <p-datepicker [(ngModel)]="date"></p-datepicker>
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+    <p-button label="Save" (click)=onSave() />
+  </div>
+</p-dialog>
 <div class="grid gap-8 p-8">
   <div class="grid grid-flow-col gap-4" *ngIf="data?.accountById">
     <p-card header="Income">
@@ -13,12 +41,15 @@
     </p-card>
   </div>
 
-  <p-card header="Transaction history" *ngIf="data?.transactions">
-    <p-timeline [value]="data.transactions">
+  <p-card header="Transaction history" *ngIf="data" class="max-w-3/4">
+    <p-timeline [value]="data?.transactions">
+      <ng-template #opposite let-transaction>
+        <small class="text-surface-500 dark:text-surface-400">{{ formatDate(transaction.date, "MM/dd/yy", "en-US") }}</small>
+      </ng-template>
       <ng-template #content let-transaction>
         <div class="flex justify-between">
           <div>
-            <p>{{transaction.merchant }}</p>
+            <p>{{transaction.payee }}</p>
             <p-chip>{{ transaction.category }}</p-chip>
           </div>
           <p>{{ transaction.amount }}</p>
@@ -31,3 +62,4 @@
     </a>
   </p-card>
 </div>
+
