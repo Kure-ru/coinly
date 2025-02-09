@@ -7,8 +7,9 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) {}
     
-    public DbSet<User> Users { get; set; }
     public DbSet<Account> Accounts { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    
     public DbSet<Transaction> Transactions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,9 +17,9 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Account>().HasData(
-            new Account { id = 1, income = 10000, expense = 6000, balance = 4000 },
-            new Account { id = 2, income = 20000, expense = 10000, balance = 10000 },
-            new Account { id = 3, income = 30000, expense = 20000, balance = 10000 });
+            new Account { id = 1, income = 10000},
+            new Account { id = 2, income = 20000},
+            new Account { id = 3, income = 30000});
 
         modelBuilder.Entity<Transaction>().HasData(
             new Transaction
@@ -51,5 +52,14 @@ public class ApplicationDbContext : DbContext
                 id = 6, accountId = 1, amount = 6000, category = "salary", payee = "employer",
                 date = new DateTime(2025, 1, 1), type = TransactionType.inflow
             });
+        
+        modelBuilder.Entity<Category>().HasData(
+            new Category { id = 1, name = "rent", activity = 1000, assigned = 1000, accountId = 1},
+            new Category { id = 2, name = "groceries", activity = 2000, assigned = 2000, accountId = 1},
+            new Category { id = 3, name = "rent", activity = 3000, assigned = 3000, accountId = 2},
+            new Category { id = 4, name = "groceries", activity = 4000, assigned = 4000, accountId = 2},
+            new Category { id = 5, name = "rent", activity = 5000, assigned = 5000, accountId = 3});
     }
+    
+    
 }
