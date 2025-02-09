@@ -21,7 +21,6 @@ builder.Services.AddCors(options =>
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddType<AccountType>()
     .AddType<TransactionType>()
     .AddType<DateTimeType>()
     .AddMutationType<TransactionMutation>();

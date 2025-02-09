@@ -1,0 +1,11 @@
+type Category {
+    id: ID!
+    name: String!
+    available: Float!
+    activity: Float!
+    assigned: Float!
+}
+
+type Query {
+    getCategoriesByAccount(accountId: ID!): [Category]
+}
