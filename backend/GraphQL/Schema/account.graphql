@@ -1,6 +1,0 @@
-type Account {
-    id: ID!
-    income: Float
-    expense: Float
-    balance: Float
-}
