@@ -1,9 +1,13 @@
 using coinly;
-using coinly.GraphQL.Query;
+using coinly.GraphQL.Mutation;
+using coinly.GraphQL.Resolvers;
 using coinly.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddCors(options =>
 {
@@ -17,14 +21,10 @@ builder.Services.AddCors(options =>
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddType<User>()
-    .AddType<Account>()
-    .AddType<Transaction>();
-
-// SQLite Connection
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+    .AddType<AccountType>()
+    .AddType<TransactionType>()
+    .AddType<DateTimeType>()
+    .AddMutationType<TransactionMutation>();
 
  var app = builder.Build();
 

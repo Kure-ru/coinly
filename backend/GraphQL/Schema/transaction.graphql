@@ -1,7 +1,50 @@
+scalar Date
+
 type Transaction {
     id: ID!
     accountId: ID!
     amount: Float!
     category: String
-    merchant: String
+    payee: String
+    type: TransactionType
+    date: Date
+}
+
+enum TransactionType {
+    inflow
+    outflow
+}
+
+type AddTransactionPayload {
+    id: ID!
+    amount: Float!
+    category: String
+    payee: String
+    date: Date
+    type: TransactionType
+}
+
+input AddTransactionInput {
+    amount: Float!
+    category: String
+    payee: String
+    date: Date
+    type: TransactionType
+}
+
+type GetTransactionsByAccount {
+    accountById(id: ID!): Account
+    transactions(accountId: ID!): [Transaction]
+}
+
+type Mutation {
+    addTransaction(input: AddTransactionInput!): AddTransactionPayload!
+}
+
+type Account {
+    id: ID!
+    income: Float
+    expense: Float
+    balance: Float
+    transactions: [Transaction]
 }

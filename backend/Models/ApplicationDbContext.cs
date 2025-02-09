@@ -21,11 +21,35 @@ public class ApplicationDbContext : DbContext
             new Account { id = 3, income = 30000, expense = 20000, balance = 10000 });
 
         modelBuilder.Entity<Transaction>().HasData(
-            new Transaction { id = 1, accountId = 1, amount = 1000, category = "rent", merchant = "landlord" },
-            new Transaction { id = 2, accountId = 1, amount = 2000, category = "groceries", merchant = "monoprix" },
-            new Transaction { id = 3, accountId = 1, amount = 3000, category = "salary", merchant = "employer" },
-            new Transaction { id = 4, accountId = 2, amount = 4000, category = "rent", merchant = "landlord" },
-            new Transaction { id = 5, accountId = 2, amount = 5000, category = "groceries", merchant = "monoprix" });
-
+            new Transaction
+            {
+                id = 1, accountId = 1, amount = 1000, category = "rent", payee = "landlord",
+                date = new DateTime(2025, 1, 1), type = TransactionType.outflow
+            },
+            new Transaction
+            {
+                id = 2, accountId = 1, amount = 2000, category = "groceries", payee = "monoprix",
+                date = new DateTime(2025, 1, 2), type = TransactionType.outflow
+            },
+            new Transaction
+            {
+                id = 3, accountId = 2, amount = 3000, category = "rent", payee = "landlord",
+                date = new DateTime(2025, 1, 3), type = TransactionType.outflow
+            },
+            new Transaction
+            {
+                id = 4, accountId = 2, amount = 4000, category = "groceries", payee = "monoprix",
+                date = new DateTime(2025, 1, 4), type = TransactionType.outflow
+            },
+            new Transaction
+            {
+                id = 5, accountId = 3, amount = 5000, category = "rent", payee = "landlord",
+                date = new DateTime(2025, 1, 5), type = TransactionType.outflow
+            },
+            new Transaction
+            {
+                id = 6, accountId = 1, amount = 6000, category = "salary", payee = "employer",
+                date = new DateTime(2025, 1, 1), type = TransactionType.inflow
+            });
     }
 }

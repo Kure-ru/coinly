@@ -482,3 +482,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/coiny.db-wal
+/coiny.db-shm
+/.config/dotnet-tools.json
+
+
+Migrations
