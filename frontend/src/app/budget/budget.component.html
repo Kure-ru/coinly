@@ -1,19 +1,22 @@
-<h1>Transactions</h1>
-<p-table [value]="categories" *ngIf="categories">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Category</th>
-      <th>Assigned</th>
-      <th>Activity</th>
-      <th>Assigned</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-category>
-    <tr>
-      <td>{{ category.name }}</td>
-      <td>{{ category.assigned }}</td>
-      <td>{{ category.activity }}</td>
-      <td>{{ category.assigned }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+<h1>Budget</h1>
+<p-card>
+  <p-button label="+ category" (click)=addCategory()></p-button>
+  <p-table [value]="categories" *ngIf="categories" class="p-4">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Category</th>
+        <th>Available</th>
+        <th>Activity</th>
+        <th>Assigned</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-category>
+      <tr>
+        <td>{{ category.name }}</td>
+        <td>{{ category.available }}</td>
+        <td>{{ category.activity }}</td>
+        <td>{{ category.assigned }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

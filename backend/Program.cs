@@ -23,7 +23,7 @@ builder.Services
     .AddQueryType<Query>()
     .AddType<TransactionType>()
     .AddType<DateTimeType>()
-    .AddMutationType<TransactionMutation>();
+    .AddMutationType<Mutation>();
 
  var app = builder.Build();
 

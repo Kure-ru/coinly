@@ -9,3 +9,20 @@ type Category {
 type Query {
     getCategoriesByAccount(accountId: ID!): [Category]
 }
+
+type Mutation {
+    addCategory(input: AddCategoryInput!): AddCategoryPayload!
+}
+
+input AddCategoryInput {
+    name: String!
+    accountId: Int!
+}
+
+type AddCategoryPayload {
+    id: Int!
+    name: String!
+    available: Float!
+    activity: Float!
+    assigned: Float!
+}

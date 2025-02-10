@@ -27,3 +27,15 @@ export const GET_CATEGORIES_BY_ACCOUNT = gql`
     }
   }
 `;
+
+export const ADD_CATEGORY = gql`
+  mutation AddCategory($name: String!, $accountId: Int!) {
+    addCategory(name: $name, accountId: $accountId) {
+      id
+      name
+      available
+      activity
+      assigned
+    }
+  }
+`;
