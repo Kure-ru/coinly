@@ -41,4 +41,21 @@ public class Mutation
        context.SaveChanges();
          return new AddCategoryPayload(category);
    }
+   
+   public string DeleteCategories([Service] ApplicationDbContext context, int[] categoryIds)
+   {
+       try
+       {
+           var categories = context.Categories.Where(category => categoryIds.Contains(category.id)).ToList();
+           context.Categories.RemoveRange(categories);
+           context.SaveChanges();
+           return "Categories deleted successfully";
+       } 
+       
+       catch (Exception ex)
+       {
+              throw new GraphQLException(new Error("Unexpected Execution Error", ex.Message));
+       }
+
+   }
 }

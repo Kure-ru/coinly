@@ -39,3 +39,9 @@ export const ADD_CATEGORY = gql`
     }
   }
 `;
+
+export const DELETE_CATEGORY = gql`
+  mutation DeleteCategories($categoryIds: [Int!]!) {
+    deleteCategories(categoryIds: $categoryIds)
+  }
+`;

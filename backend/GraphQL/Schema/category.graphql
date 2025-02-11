@@ -12,6 +12,7 @@ type Query {
 
 type Mutation {
     addCategory(input: AddCategoryInput!): AddCategoryPayload!
+    deleteCategories(categoryIds: [Int!]!): String!
 }
 
 input AddCategoryInput {
