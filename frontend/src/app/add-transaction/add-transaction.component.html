@@ -1,0 +1,27 @@
+<p-dialog header="Add new transaction" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+  <div class="flex items-center gap-4 mb-4">
+    <label for="amount" class="font-semibold w-24">Amount</label>
+    <input pInputText id="amount" class="flex-auto" autocomplete="off" [(ngModel)]="amount" (ngModelChange)="updateAmount($event)" />
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label class="font-semibold w-24">Category</label>
+    <p-select [options]="categoryLabels" [(ngModel)]="category" (ngModelChange)="updateCategory($event)" optionLabel="label" placeholder="Category" class="flex-auto"/>
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label for="payee" class="font-semibold w-24">Payee</label>
+    <input pInputText id="payee" class="flex-auto" autocomplete="off" [(ngModel)]="payee" (ngModelChange)="updatePayee($event)"/>
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label class="font-semibold w-24">Type</label>
+    <p-select [options]="transactionTypes" [(ngModel)]="type" (ngModelChange)="updateType($event)" optionLabel="label" placeholder="Type of transaction" class="flex-auto"/>
+  </div>
+  <div class="flex items-center gap-4 mb-8">
+    <label class="font-semibold w-24">Date</label>
+    <p-datepicker [(ngModel)]="date" (ngModelChange)="updateDate($event)"></p-datepicker>
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <p-button label="Cancel" severity="secondary" (click)="closeDialog()" />
+    <p-button label="Save" (click)="onSave()" />
+  </div>
+</p-dialog>

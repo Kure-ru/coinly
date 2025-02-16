@@ -1,0 +1,5 @@
+type Query {
+    getCategoriesByAccount(accountId: ID!): [Category]
+    getAccountById(id: ID!): Account
+    getTransactions(accountId: ID!): [Transaction]
+}

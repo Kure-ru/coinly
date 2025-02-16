@@ -6,14 +6,22 @@ public class Mutation
 {
    public AddTransactionPayload AddTransaction([Service] ApplicationDbContext context, AddTransactionInput input)
    {
+       
+       var category = context.Categories.FirstOrDefault(category => category.Id == input.categoryId);
+       
+       if (category == null)
+       {
+           throw new GraphQLException(new Error("Category not found"));
+       }
+         
        var transaction = new Transaction
        {
-           accountId = input.accountId,
-           amount = input.amount,
-           category = input.category,
-           payee = input.payee,
-           date = input.date,
-           type = input.type
+           AccountId = input.accountId,
+           Amount = input.amount,
+           Category = category,
+           Payee = input.payee,
+           Date = input.date,
+           Type = input.type
        };
        
        context.Transactions.Add(transaction);
@@ -31,10 +39,10 @@ public class Mutation
        
        var category = new Category
        {
-           name = name,
-           activity = 0,
-           assigned = 0,
-           account = context.Accounts.Find(accountId)
+           Name = name,
+           Activity = 0,
+           Assigned = 0,
+           Account = account
        };
 
        context.Categories.Add(category);
@@ -46,7 +54,7 @@ public class Mutation
    {
        try
        {
-           var categories = context.Categories.Where(category => categoryIds.Contains(category.id)).ToList();
+           var categories = context.Categories.Where(category => categoryIds.Contains(category.Id)).ToList();
            context.Categories.RemoveRange(categories);
            context.SaveChanges();
            return "Categories deleted successfully";
@@ -68,9 +76,9 @@ public class Mutation
                throw new GraphQLException(new Error("Category not found."));
            }
            
-           category.name = input.name;
-           category.activity = input.activity;
-           category.assigned = input.assigned;
+           category.Name = input.name;
+           category.Activity = input.activity;
+           category.Assigned = input.assigned;
            
            context.Categories.Update(category);
            context.SaveChanges();

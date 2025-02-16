@@ -52,7 +52,6 @@ export class BudgetComponent {
   }
 
   checkBalance(balance: number): "success" | "danger" {
-    console.log(balance, balance >= 0 ? "success" : "danger");
     return balance >= 0 ? "success" : "danger";
   }
 
@@ -111,7 +110,6 @@ updateCategory(Category: Category): void {
     assigned: Category.assigned
   }).subscribe({
     next: (response) => {
-      console.log('Category updated', response);
     },
     error: (error) => {
       console.error('Error updating category', error);

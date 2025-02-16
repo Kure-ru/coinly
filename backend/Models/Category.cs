@@ -2,13 +2,13 @@ namespace coinly.Models;
 
 public class Category
 {
-    public int id { get; set; }
-    public string name { get; set; }
-    public float activity { get; set; }
-    public float assigned { get; set; }
-    public float available => assigned - activity;
-    public int accountId { get; set; }
-    public Account account { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public float Activity { get; set; }
+    public float Assigned { get; set; }
+    public float Available => Assigned - Activity;
+    public int AccountId { get; set; }
+    public Account Account { get; set; }
 }
 
 public class AddCategoryPayload
@@ -21,11 +21,11 @@ public class AddCategoryPayload
 
     public AddCategoryPayload(Category category)
     {
-        id = category.id;
-        name = category.name;
-        assigned = category.assigned;
-        activity = category.activity;
-        available = category.available;
+        id = category.Id;
+        name = category.Name;
+        assigned = category.Assigned;
+        activity = category.Activity;
+        available = category.Available;
     }
 }
 

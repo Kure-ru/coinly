@@ -10,13 +10,13 @@ import {TransactionType} from '../home/home.component';
 export class TransactionsService {
   constructor(private apollo: Apollo) {}
 
-  addTransaction(amount: number, category: string, payee: string, accountId: number, date: Date, type: TransactionType) {
+  addTransaction(amount: number, categoryId: number, payee: string, accountId: number, date: Date, type: TransactionType) {
     return this.apollo.mutate({
       mutation: ADD_TRANSACTION,
       variables: {
         input: {
           amount,
-          category,
+          categoryId,
           payee,
           accountId,
           date,

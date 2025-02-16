@@ -33,8 +33,9 @@ export class TransactionsComponent {
     const queryRef: QueryRef<GetTransactionsByAccountIDResult, GetTransactionsByAccountIDVariables> = this.apollo.watchQuery({
       query: GET_ACCOUNT_AND_TRANSACTIONS,
       variables: {
-        id: 1,
-        accountId: 1
+        accountId: 1,
+        accountIdForTransactions: 1,
+        accountIdForCategories: 1
       }
     })
 

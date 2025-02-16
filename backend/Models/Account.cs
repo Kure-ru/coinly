@@ -15,7 +15,7 @@ public class Account
             Console.WriteLine("Categories list is empty or null.");
             return 0;
         }
-        return Categories.Sum(category => category.activity);
+        return Categories.Sum(category => category.Activity);
     }
     
 }

@@ -6,10 +6,6 @@ type Category {
     assigned: Float!
 }
 
-type Query {
-    getCategoriesByAccount(accountId: ID!): [Category]
-}
-
 type Mutation {
     addCategory(input: AddCategoryInput!): AddCategoryPayload!
     updateCategory(input: UpdateCategoryInput!): Category

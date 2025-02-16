@@ -4,7 +4,7 @@ type Transaction {
     id: ID!
     accountId: ID!
     amount: Float!
-    category: String
+    category: Category
     payee: String
     type: TransactionType
     date: Date
@@ -19,6 +19,7 @@ type AddTransactionPayload {
     id: ID!
     amount: Float!
     category: String
+    categoryId: Int
     payee: String
     date: Date
     type: TransactionType
@@ -26,15 +27,10 @@ type AddTransactionPayload {
 
 input AddTransactionInput {
     amount: Float!
-    category: String
+    categoryId: Int
     payee: String
     date: Date
     type: TransactionType
-}
-
-type GetTransactionsByAccount {
-    accountById(id: ID!): Account
-    transactions(accountId: ID!): [Transaction]
 }
 
 type TransactionMutation {

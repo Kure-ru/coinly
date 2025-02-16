@@ -1,5 +1,4 @@
 using coinly.Models;
-using HotChocolate;
 using Microsoft.EntityFrameworkCore;
 
 namespace coinly.GraphQL.Resolvers;
@@ -21,8 +20,13 @@ public class Query
     public IEnumerable<Transaction> GetTransactions(int accountId, [Service] ApplicationDbContext context)
     {
         try
-        {
-            return context.Transactions.Where(transaction => transaction.accountId == accountId).ToList();
+        { 
+            var transactions = context.Transactions
+                .Where(transaction => transaction.AccountId == accountId)
+                .Include(t => t.Category)
+                .ToList();
+            
+            return transactions;
         }
         catch (Exception ex)
         {
@@ -34,7 +38,7 @@ public class Query
     {
         try
         {
-            return  context.Categories.Where(category => category.accountId == accountId).ToList();
+            return  context.Categories.Where(category => category.AccountId == accountId).ToList();
         }
         catch (Exception ex)
         {
