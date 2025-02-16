@@ -16,6 +16,13 @@ export interface GetCategoriesByAccountVariables {
   accountId: number;
 }
 
+export type UpdateCategoryInput = {
+  id: number;
+  name: string;
+  activity: number;
+  assigned: number;
+}
+
 export const GET_CATEGORIES_BY_ACCOUNT = gql`
   query GetCategoriesByAccount($accountId: Int!) {
     categoriesByAccount(accountId: $accountId) {
@@ -27,3 +34,32 @@ export const GET_CATEGORIES_BY_ACCOUNT = gql`
     }
   }
 `;
+
+export const ADD_CATEGORY = gql`
+  mutation AddCategory($name: String!, $accountId: Int!) {
+    addCategory(name: $name, accountId: $accountId) {
+      id
+      name
+      available
+      activity
+      assigned
+    }
+  }
+`;
+
+export const DELETE_CATEGORY = gql`
+  mutation DeleteCategories($categoryIds: [Int!]!) {
+    deleteCategories(categoryIds: $categoryIds)
+  }
+`;
+
+export const UPDATE_CATEGORY = gql`
+  mutation UpdateCategory($input: UpdateCategoryInput!) {
+  updateCategory(input: $input) {
+    id
+    name
+    available
+    activity
+    assigned
+  }
+}`;

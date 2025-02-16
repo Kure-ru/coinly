@@ -37,7 +37,7 @@ type GetTransactionsByAccount {
     transactions(accountId: ID!): [Transaction]
 }
 
-type Mutation {
+type TransactionMutation {
     addTransaction(input: AddTransactionInput!): AddTransactionPayload!
 }
 

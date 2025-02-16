@@ -1,4 +1,4 @@
-import {gql, TypedDocumentNode} from '@apollo/client/core';
+import {gql} from '@apollo/client/core';
 import {Account} from './accounts.graphql';
 
 export interface Transaction {
