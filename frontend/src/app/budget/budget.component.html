@@ -9,18 +9,18 @@
       <tr>
         <th style="width: 4rem"></th>
         <th>Category</th>
-        <th>Available</th>
-        <th>Activity</th>
         <th>Assigned</th>
+        <th>Activity</th>
+        <th>Available</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-category>
       <tr>
         <td> <p-tableCheckbox [value]="category.id" /></td>
-        <td><input pInputText [(ngModel)]="category.name" (ngModelChange)="onCategoryNameChange(category.id, $event)" (keydown.enter)="updateCategory(category)"></td>
+        <td><input pInputText [(ngModel)]="category.name" (ngModelChange)="updateCategoryProperty(category.id, 'name', $event)" (keydown.enter)="updateCategory(category)"></td>
+        <td><input pInputText [(ngModel)]="category.assigned" (ngModelChange)="updateCategoryProperty(category.id, 'assigned', $event)" (keydown.enter)="updateCategory(category)"></td>
+        <td><input pInputText [(ngModel)]="category.activity" (ngModelChange)="updateCategoryProperty(category.id, 'activity', $event)" (keydown.enter)="updateCategory(category)"></td>
         <td>{{ category.available }}</td>
-        <td>{{ category.activity }}</td>
-        <td>{{ category.assigned }}</td>
       </tr>
     </ng-template>
   </p-table>

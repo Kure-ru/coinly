@@ -74,10 +74,15 @@ export class BudgetComponent {
     });
   }
 
-  onCategoryNameChange(categoryId: number, newName: string): void {
+  updateCategoryProperty(categoryId: number, property: keyof Category, newValue: string): void {
     const category = this.categories.find(cat => cat.id === categoryId);
     if (category) {
-      category.name = newName;
+      if (property === 'name'){
+        category[property] = newValue;
+      }
+      else {
+        category[property] = parseFloat(newValue) || 0;
+      }
     }
   }
 
