@@ -1,26 +1,39 @@
-<h1>Budget</h1>
+<h1 class="font-medium text-3xl text-900">Budget</h1>
 <p-card>
-  <div class="flex gap-2">
-  <p-button (click)=addCategory()><fa-icon [icon]="faPlus"></fa-icon></p-button>
-  <p-button (click)=deleteCategories()><fa-icon [icon]="faTrash"></fa-icon></p-button>
-  </div>
     <p-table [value]="categories" *ngIf="categories" class="p-4" selectionMode="multiple" [(selection)]="selectedCategories">
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 4rem"></th>
-        <th>Category</th>
+        <th>
+          <div class="flex justify-between items-center">
+            Category
+            <div class="flex gap-2">
+            <p-button size="small" (click)=addCategory()><fa-icon [icon]="faPlus"></fa-icon></p-button>
+            <p-button size="small" (click)=deleteCategories()><fa-icon [icon]="faTrash"></fa-icon></p-button>
+            </div>
+            </div>
+        </th>
         <th>Assigned</th>
         <th>Activity</th>
         <th>Available</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-category>
-      <tr>
+      <tr class="align-top">
         <td> <p-tableCheckbox [value]="category.id" /></td>
-        <td><input pInputText [(ngModel)]="category.name" (ngModelChange)="updateCategoryProperty(category.id, 'name', $event)" (keydown.enter)="updateCategory(category)"></td>
+        <td>
+          <input class="mb-2" pInputText [(ngModel)]="category.name" (ngModelChange)="updateCategoryProperty(category.id, 'name', $event)" (keydown.enter)="updateCategory(category)">
+          <p-progressbar
+            [style]="{height: '8px'}"
+            [value]="calculateBalance(category)"
+            [color]="calculateBalance(category) > 100 ? '#fee2e2' : '#dcfce7'"
+            showValue="false"
+          >
+          </p-progressbar>
+        </td>
         <td><input pInputText [(ngModel)]="category.assigned" (ngModelChange)="updateCategoryProperty(category.id, 'assigned', $event)" (keydown.enter)="updateCategory(category)"></td>
         <td><input pInputText [(ngModel)]="category.activity" (ngModelChange)="updateCategoryProperty(category.id, 'activity', $event)" (keydown.enter)="updateCategory(category)"></td>
-        <td>{{ category.available }}</td>
+        <td><p-tag [severity]="checkBalance(category.available )">{{ category.available }}</p-tag></td>
       </tr>
     </ng-template>
   </p-table>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
+import {NgIf} from '@angular/common';
 import { PrimeTemplate } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { Observable } from 'rxjs';
@@ -19,6 +19,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {InputText} from 'primeng/inputtext';
 import {FormsModule} from '@angular/forms';
+import {Tag} from 'primeng/tag';
+import {ProgressBar} from 'primeng/progressbar';
 
 @Component({
   selector: 'app-budget',
@@ -31,6 +33,8 @@ import {FormsModule} from '@angular/forms';
     FontAwesomeModule,
     InputText,
     FormsModule,
+    Tag,
+    ProgressBar,
   ],
   templateUrl: './budget.component.html',
 })
@@ -45,6 +49,19 @@ export class BudgetComponent {
   constructor(private apollo: Apollo, private categoriesService: CategoriesService) {
     this.data$ = new Observable<any>();
     this.initializeCategories();
+  }
+
+  checkBalance(balance: number): "success" | "danger" {
+    console.log(balance, balance >= 0 ? "success" : "danger");
+    return balance >= 0 ? "success" : "danger";
+  }
+
+  calculateBalance(category: Category): number {
+    if (category.assigned === 0){
+      return 0;
+    }
+
+    return Math.round((category.activity / category.assigned) * 100);
   }
 
   private initializeCategories(): void {
