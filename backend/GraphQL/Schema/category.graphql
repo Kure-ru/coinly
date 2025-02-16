@@ -12,12 +12,21 @@ type Query {
 
 type Mutation {
     addCategory(input: AddCategoryInput!): AddCategoryPayload!
+    updateCategory(input: UpdateCategoryInput!): Category
     deleteCategories(categoryIds: [Int!]!): String!
 }
 
 input AddCategoryInput {
     name: String!
     accountId: Int!
+}
+
+input UpdateCategoryInput {
+    id: Int!
+    name: String!
+    accountId: Int!
+    activity: Float!
+    assigned: Float!
 }
 
 type AddCategoryPayload {

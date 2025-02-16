@@ -17,7 +17,7 @@
     <ng-template pTemplate="body" let-category>
       <tr>
         <td> <p-tableCheckbox [value]="category.id" /></td>
-        <td>{{ category.name }}</td>
+        <td><input pInputText [(ngModel)]="category.name" (ngModelChange)="onCategoryNameChange(category.id, $event)" (keydown.enter)="updateCategory(category)"></td>
         <td>{{ category.available }}</td>
         <td>{{ category.activity }}</td>
         <td>{{ category.assigned }}</td>

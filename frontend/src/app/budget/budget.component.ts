@@ -17,6 +17,8 @@ import { CategoriesService } from '../categories.service';
 import { MutationResult } from '@apollo/client';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {InputText} from 'primeng/inputtext';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-budget',
@@ -26,18 +28,26 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
     TableModule,
     Card,
     Button,
-    FontAwesomeModule
+    FontAwesomeModule,
+    InputText,
+    FormsModule,
   ],
   templateUrl: './budget.component.html',
 })
 export class BudgetComponent {
-  data$: Observable<any>;
-  categories: Category[] = [];
   faPlus = faPlus;
   faTrash = faTrash;
+
+  data$: Observable<any>;
+  categories: Category[] = [];
   selectedCategories: number[] = [];
 
   constructor(private apollo: Apollo, private categoriesService: CategoriesService) {
+    this.data$ = new Observable<any>();
+    this.initializeCategories();
+  }
+
+  private initializeCategories(): void {
     const queryRef: QueryRef<GetCategoriesByAccount, GetCategoriesByAccountVariables> = this.apollo.watchQuery({
       query: GET_CATEGORIES_BY_ACCOUNT,
       variables: {
@@ -48,12 +58,11 @@ export class BudgetComponent {
     this.data$ = queryRef.valueChanges.pipe(
         map(result => result.data)
     );
-
-    this.data$.subscribe(result => this.categories = result.categoriesByAccount);
+    this.data$.subscribe(result => this.categories = result.categoriesByAccount.map((category: Category) => ({ ...category })));
   }
 
-  addCategory() {
-    (this.categoriesService.addCategory('new category', 1) as Observable<MutationResult<{addCategory: Category}>>).subscribe({
+  addCategory(): void {
+    (this.categoriesService.addCategory('new category', 1) as Observable<MutationResult<{ addCategory: Category }>>).subscribe({
       next: (response) => {
         if (response.data) {
           this.categories = [...this.categories, response.data.addCategory];
@@ -65,7 +74,30 @@ export class BudgetComponent {
     });
   }
 
-  deleteCategories(){
+  onCategoryNameChange(categoryId: number, newName: string): void {
+    const category = this.categories.find(cat => cat.id === categoryId);
+    if (category) {
+      category.name = newName;
+    }
+  }
+
+updateCategory(Category: Category): void {
+  this.categoriesService.updateCategory({
+    id: Category.id,
+    name: Category.name,
+    activity: Category.activity,
+    assigned: Category.assigned
+  }).subscribe({
+    next: (response) => {
+      console.log('Category updated', response);
+    },
+    error: (error) => {
+      console.error('Error updating category', error);
+    }
+  });
+}
+
+  deleteCategories(): void{
     if (this.selectedCategories.length === 0) {
       return;
     }

@@ -51,11 +51,34 @@ public class Mutation
            context.SaveChanges();
            return "Categories deleted successfully";
        } 
-       
        catch (Exception ex)
        {
               throw new GraphQLException(new Error("Unexpected Execution Error", ex.Message));
        }
 
+   }
+
+   public Category UpdateCategory([Service] ApplicationDbContext context, UpdateCategoryInput input)
+   {
+       try
+       {
+           var category = context.Categories.Find(input.id);
+           if (category == null)
+           {
+               throw new GraphQLException(new Error("Category not found."));
+           }
+           
+           category.name = input.name;
+           category.activity = input.activity;
+           category.assigned = input.assigned;
+           
+           context.Categories.Update(category);
+           context.SaveChanges();
+           return category;
+       }
+       catch (Exception ex)
+       {
+           throw new GraphQLException(new Error("Unexpected Execution Error", ex.Message));
+       }
    }
 }

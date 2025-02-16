@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 
-import {ADD_CATEGORY, DELETE_CATEGORY} from '../graphql/categories.graphql';
+import {ADD_CATEGORY, DELETE_CATEGORY, UPDATE_CATEGORY, UpdateCategoryInput} from '../graphql/categories.graphql';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,15 @@ export class CategoriesService {
           categoryIds
       }
     });
+  }
+
+  updateCategory(input: UpdateCategoryInput) {
+    return this.apollo.mutate({
+      mutation: UPDATE_CATEGORY,
+      variables: {
+        input
+      }
+    })
   }
 }
 

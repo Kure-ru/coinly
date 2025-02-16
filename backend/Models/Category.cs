@@ -34,3 +34,11 @@ public class AddCategoryInput
     public string name { get; set; }
     public int accountId { get; set; }
 }
+
+public class UpdateCategoryInput
+{
+    public int id { get; set; }
+    public string name { get; set; }
+    public float assigned { get; set; }
+    public float activity { get; set; }
+}
